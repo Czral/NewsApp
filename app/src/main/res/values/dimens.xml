@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="divider_height">1px</dimen>
+    <dimen name="twelve_dp_padding">12dp</dimen>
+    <dimen name="four_dp_padding">4dp</dimen>
+    <dimen name="twenty_sp_text">20sp</dimen>
+    <dimen name="twelve_sp_text">12sp</dimen>
+    <dimen name="sixteen_sp_text">16sp</dimen>
+
+</resources>
