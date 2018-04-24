@@ -4,17 +4,22 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +27,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
 
     private String URL_NEWS = "https://content.guardianapis.com/search?api-key=c63106ef-033c-4e74-a2e9-5322611c7636";
+    private static final String GUARDIAN_URL = "https://content.guardianapis.com/";
     public TextView emptyState;
     private NewsAdapter adapter;
     public View progressBar;
@@ -128,7 +134,19 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
 
-        return new NewsLoader(this, URL_NEWS);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String keywordSearch = sharedPreferences.getString(getResources().getString(R.string.keyword_key),
+                getResources().getString(R.string.keyword_default));
+
+String URLText = GUARDIAN_URL + keywordSearch + "?&api-key=test";
+
+        Toast.makeText(this, URLText, Toast.LENGTH_SHORT).show();
+
+        return new NewsLoader(this, URLText);
+
+
+      //    return new NewsLoader(this, URL_NEWS);
     }
 
     @Override
@@ -185,4 +203,26 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
