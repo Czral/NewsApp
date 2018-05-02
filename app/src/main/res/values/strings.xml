@@ -1,15 +1,35 @@
 <resources>
 
     <string name="app_name">News App</string>
-    <string name="url_news">https://content.guardianapis.com/search?api&#8211;key=c63106ef&#8211;033c&#8211;4e74&#8211;a2e9&#8211;5322611c7636</string>
+    <string name="url_news" translatable="false">https://content.guardianapis.com/search?api&#8211;key=c63106ef&#8211;033c&#8211;4e74&#8211;a2e9&#8211;5322611c7636</string>
     <string name="no_internet_connection">No internet connection.</string>
     <string name="no_news_found">No news found.</string>
 
     <string name="settings_menu_item">Settings</string>
     <string name="settings_title">News Settings</string>
+
     <string name="keyword_label">Search by keyword</string>
     <string name="keyword_key" translatable="false">keyword</string>
-    <string name="keyword_default" translatable="false">uk-news</string>
+    <string name="keyword_default" translatable="false"></string>
+    <string name="keyword_end" translatable="false">api-key=test</string>
 
+    <string name="section_label">Search by section</string>
+    <string name="section_key" translatable="false">section</string>
+    <string name="section_default">All</string>
+
+    <string name="section_list_all">All</string>
+    <string name="section_list_sport">Sport</string>
+    <string name="section_list_music">Music</string>
+    <string name="section_list_environment">Environment</string>
+    <string name="section_list_uk_news">UK News</string>
+    <string name="section_list_us_news">US News</string>
+    <string name="section_list_business">Business</string>
+    <string name="section_list_football">Football</string>
+
+    <string name="search" translatable="false">search</string>
+    <string name="q">q</string>
+    <string name="api_key" translatable="false">api-key</string>
+    <string name="api_value" translatable="false">test</string>
+    <string name="section" translatable="false">section</string>
 
 </resources>

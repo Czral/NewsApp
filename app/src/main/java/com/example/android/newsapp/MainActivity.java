@@ -27,7 +27,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
 
     private String URL_NEWS = "https://content.guardianapis.com/search?api-key=c63106ef-033c-4e74-a2e9-5322611c7636";
-    private static final String GUARDIAN_URL = "https://content.guardianapis.com/";
+    private static final String GUARDIAN_URL = "https://content.guardianapis.com";
     public TextView emptyState;
     private NewsAdapter adapter;
     public View progressBar;
@@ -119,7 +119,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     }
                 }
 
-                URL_NEWS = "https://content.guardianapis.com/" + currentSearch + "?&api-key=test";
+                URL_NEWS = GUARDIAN_URL + currentSearch + "?&api-key=test";
+                Toast.makeText(MainActivity.this, URL_NEWS, Toast.LENGTH_SHORT).show();
 
                 adapter.notifyDataSetChanged();
                 searchLoader();
@@ -135,18 +136,39 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
         String keywordSearch = sharedPreferences.getString(getResources().getString(R.string.keyword_key),
                 getResources().getString(R.string.keyword_default));
 
-String URLText = GUARDIAN_URL + keywordSearch + "?&api-key=test";
+        String sectionSearch = sharedPreferences.getString(getResources().getString(R.string.section_key),
+                getResources().getString(R.string.section_default));
 
-        Toast.makeText(this, URLText, Toast.LENGTH_SHORT).show();
+        Uri guardianUri = Uri.parse(GUARDIAN_URL);
+        Uri.Builder uriBuilder = guardianUri.buildUpon();
 
-        return new NewsLoader(this, URLText);
+        if (keywordSearch.isEmpty() && sectionSearch.equalsIgnoreCase(getResources().getString(R.string.section_list_all))) {
 
+            return new NewsLoader(this, URL_NEWS);
+        } else if (!(keywordSearch.isEmpty()) && (sectionSearch.equalsIgnoreCase(getResources().getString(R.string.section_list_all)))) {
 
-      //    return new NewsLoader(this, URL_NEWS);
+            uriBuilder.appendPath(getResources().getString(R.string.search));
+            uriBuilder.appendQueryParameter(getResources().getString(R.string.q), keywordSearch);
+            uriBuilder.appendQueryParameter(getResources().getString(R.string.api_key), getResources().getString(R.string.api_value));
+            Toast.makeText(this, uriBuilder.toString(), Toast.LENGTH_SHORT).show();
+            return new NewsLoader(this, uriBuilder.toString());
+        } else if ((keywordSearch.isEmpty()) && !(sectionSearch.equalsIgnoreCase(getResources().getString(R.string.section_list_all)))) {
+
+            uriBuilder.appendPath(sectionSearch);
+            uriBuilder.appendQueryParameter(getResources().getString(R.string.api_key), getResources().getString(R.string.api_value));
+            return new NewsLoader(this, uriBuilder.toString());
+        } else {
+
+            uriBuilder.appendPath(getResources().getString(R.string.search));
+            uriBuilder.appendQueryParameter(getResources().getString(R.string.section), sectionSearch);
+            uriBuilder.appendQueryParameter(getResources().getString(R.string.q), keywordSearch);
+            uriBuilder.appendQueryParameter(getResources().getString(R.string.api_key), getResources().getString(R.string.api_value));
+            return new NewsLoader(this, uriBuilder.toString());
+        }
+
     }
 
     @Override
@@ -225,4 +247,5 @@ String URLText = GUARDIAN_URL + keywordSearch + "?&api-key=test";
 
         return super.onOptionsItemSelected(item);
     }
+
 }
