@@ -55,4 +55,5 @@
         android:numStars="5"
         android:paddingBottom="@dimen/four_dp_padding" />
 
+
 </LinearLayout>

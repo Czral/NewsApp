@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -24,14 +26,25 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
 
-    private String URL_NEWS = "https://content.guardianapis.com/search?api-key=c63106ef-033c-4e74-a2e9-5322611c7636";
+    private String URL_NEWS = "https://content.guardianapis.com/search?show-references=all&api-key=c63106ef-033c-4e74-a2e9-5322611c7636";
     private static final String GUARDIAN_URL = "https://content.guardianapis.com";
+
+    @BindView(R.id.empty_state_text)
     public TextView emptyState;
-    private NewsAdapter adapter;
+
+    @BindView(R.id.progress_bar)
     public View progressBar;
+
+    @BindView(R.id.swipe_refresh)
     public SwipeRefreshLayout swipeRefreshLayout;
+
+    private static final int LOADER_ID = 0;
+    private NewsAdapter adapter;
     public LoaderManager loaderManager;
     boolean connection;
 
@@ -40,9 +53,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        swipeRefreshLayout = findViewById(R.id.swipe_refresh);
-        emptyState = findViewById(R.id.empty_state_text);
-        progressBar = findViewById(R.id.progress_bar);
+        ButterKnife.bind(this);
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
@@ -51,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if (connection) {
 
             loaderManager = getLoaderManager();
-            loaderManager.initLoader(0, null, this);
+            loaderManager.initLoader(LOADER_ID, null, this);
         } else {
 
             progressBar.setVisibility(View.GONE);
@@ -70,7 +81,17 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 News currentNews = adapter.getItem(i);
                 Uri newsUri = Uri.parse(currentNews.getUrl());
                 Intent webIntent = new Intent(Intent.ACTION_VIEW, newsUri);
-                startActivity(webIntent);
+                PackageManager packageManager = getPackageManager();
+                List<ResolveInfo> activities = packageManager.queryIntentActivities(webIntent, 0);
+                boolean safeIntent = activities.size() > 0;
+
+                if (safeIntent) {
+
+                    startActivity(webIntent);
+                } else {
+
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.no_web_browser_installed), Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -119,9 +140,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     }
                 }
 
-                URL_NEWS = GUARDIAN_URL + currentSearch + "?&api-key=test";
-                Toast.makeText(MainActivity.this, URL_NEWS, Toast.LENGTH_SHORT).show();
-
+                URL_NEWS = GUARDIAN_URL + "/" + currentSearch + "?api-key=test";
                 adapter.notifyDataSetChanged();
                 searchLoader();
 
@@ -153,7 +172,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             uriBuilder.appendPath(getResources().getString(R.string.search));
             uriBuilder.appendQueryParameter(getResources().getString(R.string.q), keywordSearch);
             uriBuilder.appendQueryParameter(getResources().getString(R.string.api_key), getResources().getString(R.string.api_value));
-            Toast.makeText(this, uriBuilder.toString(), Toast.LENGTH_SHORT).show();
             return new NewsLoader(this, uriBuilder.toString());
         } else if ((keywordSearch.isEmpty()) && !(sectionSearch.equalsIgnoreCase(getResources().getString(R.string.section_list_all)))) {
 

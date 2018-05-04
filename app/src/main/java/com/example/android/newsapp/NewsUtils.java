@@ -27,6 +27,17 @@ import java.util.List;
 
 public final class NewsUtils {
 
+    private static final String LOG = "LOG";
+    private static final String RESPONSE = "response";
+    private static final String RESULTS = "results";
+    private static final String WEBTITLE = "webTitle";
+    private static final String SECTIONNAME = "sectionName";
+    private static final String WEBRUBLICATIONDATE = "webPublicationDate";
+    private static final String WEBURL = "webUrl";
+    private static final String TAGS = "tags";
+    private static final String FIELDS = "fields";
+    private static final String STARRATING = "starRating";
+
     private NewsUtils() {
     }
 
@@ -36,7 +47,7 @@ public final class NewsUtils {
         try {
             url = new URL(stringUrl);
         } catch (MalformedURLException e) {
-            Log.e("LOG", "Error building the URL", e);
+            Log.e(LOG, "Error building the URL", e);
         }
 
         return url;
@@ -67,11 +78,11 @@ public final class NewsUtils {
                     jsonResponse = readfromStream(inputStream);
                 } else {
 
-                    Log.e("LOG", "Error response code:  " + urlConnection.getResponseCode());
+                    Log.e(LOG, "Error response code:  " + urlConnection.getResponseCode());
                 }
 
             } catch (IOException e) {
-                Log.e("LOG", "Error retrieving data from server. ", e);
+                Log.e(LOG, "Error retrieving data from server. ", e);
 
             } finally {
 
@@ -123,28 +134,24 @@ public final class NewsUtils {
             // build up a list of Earthquake objects with the corresponding data.
             JSONObject newsJsonObject = new JSONObject(newsJSON);
 
-            JSONObject newsArray = newsJsonObject.getJSONObject("response");
+            JSONObject newsArray = newsJsonObject.getJSONObject(RESPONSE);
 
-            JSONArray results = newsArray.getJSONArray("results");
+            JSONArray results = newsArray.getJSONArray(RESULTS);
 
             for (int i = 0; i < results.length(); i++) {
 
                 JSONObject currentNews = results.getJSONObject(i);
 
-                String author = "";
+                String author = " ";
                 int rating = 0;
 
-                // OK.
-                String title = currentNews.getString("webTitle");
+                String title = currentNews.getString(WEBTITLE);
 
-                // OK.
-                String section = currentNews.getString("sectionName");
+                String section = currentNews.getString(SECTIONNAME);
 
-                // OK.
-                String date = currentNews.getString("webPublicationDate");
+                String date = currentNews.getString(WEBRUBLICATIONDATE);
 
-                // OK.
-                String webUrl = currentNews.getString("webUrl");
+                String webUrl = currentNews.getString(WEBURL);
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
                 try {
@@ -153,28 +160,27 @@ public final class NewsUtils {
                     date = dateFormat.format(newDate).toString();
 
                 } catch (ParseException e) {
-                    Log.e("LOG", "Error formatting the date", e);
+                    Log.e(LOG, "Error formatting the date", e);
                 }
 
-                if (currentNews.has("tags")) {
-                    JSONArray tags = newsArray.getJSONArray("tags");
+                if (currentNews.has(TAGS)) {
+                    JSONArray tags = newsArray.getJSONArray(TAGS);
 
                     if (tags.length() != 0) {
 
                         JSONObject currentNews2 = tags.getJSONObject(i);
-                        author = currentNews2.getString("webTitle");
-                        Log.e("LOG", "Author is " + author);
+                        author = currentNews2.getString(WEBTITLE);
                     }
                 }
 
-                if (currentNews.has("fields")) {
+                if (currentNews.has(FIELDS)) {
 
-                    JSONArray fields = newsArray.getJSONArray("fields");
+                    JSONArray fields = newsArray.getJSONArray(FIELDS);
 
                     if (fields.length() != 0) {
 
                         JSONObject currentNews3 = fields.getJSONObject(i);
-                        rating = currentNews3.getInt("starRating");
+                        rating = currentNews3.getInt(STARRATING);
 
                     }
                 }
@@ -188,7 +194,7 @@ public final class NewsUtils {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
             // with the message from the exception.
-            Log.e("LOG", "Problem parsing the news JSON results", e);
+            Log.e(LOG, "Problem parsing the news JSON results", e);
 
         }
 
@@ -204,12 +210,12 @@ public final class NewsUtils {
             jsonResponse = makeHttpRequest(url);
         } catch (IOException e) {
 
-            Log.e("LOG", "Error making HTTP request.", e);
+            Log.e(LOG, "Error making HTTP request.", e);
         }
 
         List<News> news = extractFeaturesFromJson(jsonResponse);
 
-        Log.e("LOG", "Fetching data.", null);
+        Log.e(LOG, "Fetching data.", null);
 
         return news;
 
