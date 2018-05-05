@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:title="@string/settings_title">
+
+    <EditTextPreference
+        android:defaultValue="@string/keyword_default"
+        android:inputType="text"
+        android:key="@string/keyword_key"
+        android:selectAllOnFocus="true"
+        android:title="@string/keyword_label" />
+
+    <ListPreference
+        android:defaultValue="@string/section_list_all"
+        android:entries="@array/section_list_labels"
+        android:entryValues="@array/section_list_values"
+        android:key="@string/section_key"
+        android:title="Search by section" />
+
+</PreferenceScreen>

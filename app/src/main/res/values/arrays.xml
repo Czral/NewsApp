@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="section_list_labels">
+
+        <item>@string/section_list_all</item>
+        <item>@string/section_list_sport</item>
+        <item>@string/section_list_music</item>
+        <item>@string/section_list_environment</item>
+        <item>@string/section_list_uk_news</item>
+        <item>@string/section_list_us_news</item>
+        <item>@string/section_list_business</item>
+        <item>@string/section_list_football</item>
+    </string-array>
+
+    <string-array name="section_list_values">
+
+        <item>@string/section_list_values_all</item>
+        <item>@string/section_list_values_sport</item>
+        <item>@string/section_list_values_music</item>
+        <item>@string/section_list_values_environment</item>
+        <item>@string/section_list_values_uk_news</item>
+        <item>@string/section_list_values_us_news</item>
+        <item>@string/section_list_values_business</item>
+        <item>@string/section_list_values_football</item>
+    </string-array>
+
+</resources>
