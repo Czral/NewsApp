@@ -37,7 +37,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
         News currentNews = getItem(position);
 
         TextView nameText = listView.findViewById(R.id.author_name);
-        nameText.setText(currentNews.getName());
+        nameText.setText(currentNews.getAuthor());
 
         RatingBar ratingBar = listView.findViewById(R.id.rating_bar);
 

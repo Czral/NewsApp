@@ -6,7 +6,7 @@ package com.example.android.newsapp;
 
 public class News {
 
-    private String mName;
+    private String mAuthor;
 
     private int mRating;
 
@@ -18,9 +18,9 @@ public class News {
 
     private String mDate;
 
-    public News(String name, int rating, String title, String section, String url, String date) {
+    public News(String author, int rating, String title, String section, String url, String date) {
 
-        mName = name;
+        mAuthor = author;
         mRating = rating;
         mTitle = title;
         mSection = section;
@@ -29,8 +29,8 @@ public class News {
 
     }
 
-    public String getName() {
-        return mName;
+    public String getAuthor() {
+        return mAuthor;
     }
 
     public int getRating() {
