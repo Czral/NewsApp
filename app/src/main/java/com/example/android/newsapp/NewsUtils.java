@@ -27,6 +27,9 @@ import java.util.List;
 
 public final class NewsUtils {
 
+    private static final int READTIMEOUT = 15000;
+    private static final int CONNECTTIMEOUT = 25000;
+
     private static final String LOG = "LOG";
     private static final String RESPONSE = "response";
     private static final String RESULTS = "results";
@@ -67,8 +70,8 @@ public final class NewsUtils {
             try {
 
                 urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setReadTimeout(15000);
-                urlConnection.setConnectTimeout(25000);
+                urlConnection.setReadTimeout(READTIMEOUT);
+                urlConnection.setConnectTimeout(CONNECTTIMEOUT);
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();
 
@@ -164,22 +167,22 @@ public final class NewsUtils {
                 }
 
                 if (currentNews.has(TAGS)) {
-                    JSONArray tags = newsArray.getJSONArray(TAGS);
+                    JSONArray tags = currentNews.getJSONArray(TAGS);
 
                     if (tags.length() != 0) {
 
-                        JSONObject currentNews2 = tags.getJSONObject(i);
+                        JSONObject currentNews2 = tags.getJSONObject(0);
                         author = currentNews2.getString(WEBTITLE);
                     }
                 }
 
                 if (currentNews.has(FIELDS)) {
 
-                    JSONArray fields = newsArray.getJSONArray(FIELDS);
+                    JSONArray fields = currentNews.getJSONArray(FIELDS);
 
                     if (fields.length() != 0) {
 
-                        JSONObject currentNews3 = fields.getJSONObject(i);
+                        JSONObject currentNews3 = fields.getJSONObject(0);
                         rating = currentNews3.getInt(STARRATING);
 
                     }
@@ -195,7 +198,6 @@ public final class NewsUtils {
             // catch the exception here, so the app doesn't crash. Print a log message
             // with the message from the exception.
             Log.e(LOG, "Problem parsing the news JSON results", e);
-
         }
 
         return news;

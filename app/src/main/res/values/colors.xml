@@ -7,6 +7,9 @@
     <color name="divider">#009688</color>
     <color name="colorAccent">#FF4081</color>
     <color name="background">#E1F5FE</color>
-    <color name="black_text">#000000</color>
+    <color name="title_text">#000000</color>
+    <color name="section_text">#424242</color>
+    <color name="date_text">#757575</color>
+    <color name="author_text">#616161</color>
 
 </resources>

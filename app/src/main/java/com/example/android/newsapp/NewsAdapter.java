@@ -43,6 +43,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
 
         if (currentNews.getRating() != 0) {
 
+            ratingBar.setVisibility(View.VISIBLE);
             ratingBar.setNumStars(currentNews.getRating());
         } else {
 

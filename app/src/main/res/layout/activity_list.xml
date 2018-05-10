@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/four_dp_padding"
-        android:textColor="@color/black_text"
+        android:textColor="@color/title_text"
         android:textSize="@dimen/twenty_sp_text"
         tools:text="Title" />
 
@@ -24,19 +24,17 @@
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/four_dp_padding"
         android:paddingTop="@dimen/four_dp_padding"
-        android:textColor="@color/black_text"
+        android:textColor="@color/section_text"
         android:textSize="@dimen/twelve_sp_text"
         tools:text="Section" />
-
 
     <TextView
         android:id="@+id/date_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black_text"
+        android:textColor="@color/date_text"
         android:textSize="@dimen/sixteen_sp_text"
         tools:text="Date" />
-
 
     <TextView
         android:id="@+id/author_name"
@@ -44,7 +42,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/four_dp_padding"
         android:paddingTop="@dimen/four_dp_padding"
-        android:textColor="@color/black_text"
+        android:textColor="@color/author_text"
         tools:text="Author Name" />
 
     <RatingBar
@@ -54,6 +52,5 @@
         android:layout_height="wrap_content"
         android:numStars="5"
         android:paddingBottom="@dimen/four_dp_padding" />
-
 
 </LinearLayout>

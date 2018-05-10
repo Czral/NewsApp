@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
 
-    private String URL_NEWS = "https://content.guardianapis.com/search?show-tags=contributor&show-fields=starRating&api-key=c63106ef-033c-4e74-a2e9-5322611c7636";
+    private String URL_NEWS = "";
     private static final String GUARDIAN_URL = "https://content.guardianapis.com";
 
     @BindView(R.id.empty_state_text)
@@ -167,6 +167,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if (keywordSearch.isEmpty() && sectionSearch.equalsIgnoreCase(getResources().getString(R.string.section_list_all))) {
 
             uriBuilder.appendPath(getResources().getString(R.string.search));
+            uriBuilder.appendQueryParameter(getResources().getString(R.string.show_fields), getResources().getString(R.string.starrating));
             uriBuilder.appendQueryParameter(getResources().getString(R.string.show_tags), getResources().getString(R.string.contributor));
             uriBuilder.appendQueryParameter(getResources().getString(R.string.api_key), getResources().getString(R.string.api_value));
             return new NewsLoader(this, uriBuilder.toString());

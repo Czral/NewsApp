@@ -30,7 +30,6 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
             List<News> news = NewsUtils.fetchNewsData(mUrl);
             return news;
         }
-
     }
 
     @Override

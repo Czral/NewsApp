@@ -39,6 +39,8 @@
     <string name="search" translatable="false">search</string>
     <string name="show_tags" translatable="false">show-tags</string>
     <string name="contributor" translatable="false">contributor</string>
+    <string name="show_fields" translatable="false">show-fields</string>
+    <string name="starrating" translatable="false">starRating</string>
     <string name="q">q</string>
     <string name="api_key" translatable="false">api-key</string>
     <string name="api_value" translatable="false">c63106ef-033c-4e74-a2e9-5322611c7636</string>
