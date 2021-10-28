@@ -1,12 +1,15 @@
-package com.example.android.newsapp;
+package com.example.android.newsapp.views;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
+
+import com.example.android.newsapp.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -17,19 +20,19 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
-    public static class NewsPreferenceFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener {
+    public static class NewsPreferenceFragment extends PreferenceFragmentCompat
+            implements Preference.OnPreferenceChangeListener {
 
         @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
+        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+
             addPreferencesFromResource(R.xml.settings_main);
 
-            Preference keyword = findPreference(getString(R.string.keyword_key));
+            androidx.preference.Preference keyword = findPreference(getString(R.string.keyword_key));
             bindPreferenceToObject(keyword);
 
-            Preference section = findPreference(getString(R.string.section_key));
+            androidx.preference.Preference section = findPreference(getString(R.string.section_key));
             bindPreferenceToObject(section);
-
         }
 
         @Override

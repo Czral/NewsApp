@@ -2,18 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background"
-    android:baselineAligned="false"
-    android:gravity="center"
     android:orientation="vertical"
-    android:padding="@dimen/twelve_dp_padding">
+    android:gravity="center"
+    android:padding="@dimen/eight_dp_padding"
+    android:layout_height="wrap_content"
+    android:background="@color/background">
 
     <TextView
         android:id="@+id/title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/four_dp_padding"
+        android:textAlignment="center"
         android:textColor="@color/title_text"
         android:textSize="@dimen/twenty_sp_text"
         tools:text="Title" />
@@ -22,8 +21,9 @@
         android:id="@+id/section_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/four_dp_padding"
+        android:layout_marginTop="@dimen/eight_dp_padding"
         android:paddingTop="@dimen/four_dp_padding"
+        android:paddingBottom="@dimen/four_dp_padding"
         android:textColor="@color/section_text"
         android:textSize="@dimen/twelve_sp_text"
         tools:text="Section" />
@@ -32,6 +32,7 @@
         android:id="@+id/date_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/eight_dp_padding"
         android:textColor="@color/date_text"
         android:textSize="@dimen/sixteen_sp_text"
         tools:text="Date" />
@@ -40,17 +41,16 @@
         android:id="@+id/author_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/four_dp_padding"
-        android:paddingTop="@dimen/four_dp_padding"
+        android:paddingTop="@dimen/eight_dp_padding"
+        android:textSize="@dimen/fourteen_sp_text"
         android:textColor="@color/author_text"
         tools:text="Author Name" />
 
-    <RatingBar
-        android:id="@+id/rating_bar"
-        style="@style/Base.Widget.AppCompat.RatingBar.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:numStars="5"
-        android:paddingBottom="@dimen/four_dp_padding" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/eight_dp_padding"
+        android:layout_marginBottom="@dimen/eight_dp_padding"
+        android:background="@color/colorAccent"
+        android:layout_height="@dimen/divider_height" />
 
 </LinearLayout>
