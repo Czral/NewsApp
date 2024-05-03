@@ -6,15 +6,14 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    // TODO: Replace the api with your own api key
+    // TODO: Fill in your API key
     private static final String API = "";
 
     private static final String STAR_RATING = "starRating";
@@ -135,11 +134,11 @@ public class MainActivity extends AppCompatActivity {
 
         if (section.equalsIgnoreCase(SECTION_ALL)) {
 
-            if (keyword == null || keyword.equals("")) {
+            if (keyword == null || keyword.isEmpty()) {
 
                 getNews.getNews(STAR_RATING, CONTRIBUTOR, API).enqueue(new Callback<RetrofitNews>() {
                     @Override
-                    public void onResponse(Call<RetrofitNews> call, Response<RetrofitNews> response) {
+                    public void onResponse(@NonNull Call<RetrofitNews> call, @NonNull Response<RetrofitNews> response) {
 
                         if (response.body() != null) {
 
@@ -157,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<RetrofitNews> call, Throwable t) {
+                    public void onFailure(@NonNull Call<RetrofitNews> call, @NonNull Throwable t) {
 
                         binding.emptyStateText.setVisibility(View.VISIBLE);
                         Log.d(TAG, t.toString());
@@ -167,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
 
                 getNews.getKeywordNews(keyword, API).enqueue(new Callback<RetrofitNews>() {
                     @Override
-                    public void onResponse(Call<RetrofitNews> call, Response<RetrofitNews> response) {
+                    public void onResponse(@NonNull Call<RetrofitNews> call, @NonNull Response<RetrofitNews> response) {
 
                         if (response.body() != null) {
 
@@ -186,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<RetrofitNews> call, Throwable t) {
+                    public void onFailure(@NonNull Call<RetrofitNews> call, @NonNull Throwable t) {
 
                         binding.emptyStateText.setVisibility(View.VISIBLE);
                         Log.d(TAG, t.toString());
@@ -198,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
 
             getNews.getSectionNews(section, API).enqueue(new Callback<RetrofitNews>() {
                 @Override
-                public void onResponse(Call<RetrofitNews> call, Response<RetrofitNews> response) {
+                public void onResponse(@NonNull Call<RetrofitNews> call, @NonNull Response<RetrofitNews> response) {
 
                     if (response.body() != null) {
 
@@ -212,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<RetrofitNews> call, Throwable t) {
+                public void onFailure(@NonNull Call<RetrofitNews> call, @NonNull Throwable t) {
 
                     binding.emptyStateText.setVisibility(View.VISIBLE);
                     Log.d(TAG, t.toString());

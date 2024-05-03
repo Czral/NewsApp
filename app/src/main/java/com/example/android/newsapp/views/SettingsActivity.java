@@ -2,12 +2,13 @@ package com.example.android.newsapp.views;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceManager;
 
 import com.example.android.newsapp.R;
 
@@ -29,14 +30,16 @@ public class SettingsActivity extends AppCompatActivity {
             addPreferencesFromResource(R.xml.settings_main);
 
             androidx.preference.Preference keyword = findPreference(getString(R.string.keyword_key));
+            assert keyword != null;
             bindPreferenceToObject(keyword);
 
             androidx.preference.Preference section = findPreference(getString(R.string.section_key));
+            assert section != null;
             bindPreferenceToObject(section);
         }
 
         @Override
-        public boolean onPreferenceChange(Preference preference, Object object) {
+        public boolean onPreferenceChange(@NonNull Preference preference, Object object) {
 
             String search = object.toString();
 
